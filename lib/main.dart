@@ -62,18 +62,21 @@ class _HomePageState extends State<HomePage> {
               growth: 0.45,
               temp: 26,
               lightOn: false,
+              pH: 6.4,
             ),
             const PlantCard(
               title: "Basil",
               humidity: 0.72,
               growth: 0.32,
               temp: 27,
+              pH: 7.1,
             ),
             const PlantCard(
               title: "Cucumber",
               humidity: 0.49,
               growth: 0.79,
               temp: 26,
+              pH: 6.9,
             ),
             const SizedBox(
               height: 10,
