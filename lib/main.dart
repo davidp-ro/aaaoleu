@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        textTheme: GoogleFonts.dmSansTextTheme(
+        textTheme: GoogleFonts.muktaTextTheme(
           Theme.of(context).textTheme,
         ),
       ),
@@ -46,12 +46,12 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(vertical: 42.0),
               child: Text(
                 "My Plants",
                 style: TextStyle(
-                  fontSize: 64,
+                  fontSize: 48,
                 ),
               ),
             ),
