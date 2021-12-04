@@ -56,7 +56,40 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            const PlantCard(title: "Potato"),
+            const PlantCard(
+              title: "Potato",
+              humidity: 0.64,
+              growth: 0.45,
+            ),
+            const PlantCard(
+              title: "Basil",
+              humidity: 0.72,
+              growth: 0.32,
+            ),
+            const PlantCard(
+              title: "Cucumber",
+              humidity: 0.49,
+              growth: 0.79,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.lightGreen,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40))),
+                onPressed: () => {},
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    "Add new Module",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),
+                  ),
+                ))
           ],
         ),
       ),
