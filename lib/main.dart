@@ -32,7 +32,7 @@ class LightWay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'lightWay',
       theme: ThemeData(
         primarySwatch: Colors.lightGreen,
         textTheme: GoogleFonts.muktaTextTheme(
