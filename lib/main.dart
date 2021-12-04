@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
+import 'package:aaaoleu/add_module_modal.dart';
+import 'package:aaaoleu/services/embedded.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -42,58 +44,68 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 42.0, bottom: 42.0),
-              child: Text(
-                "My Plants",
-                style: TextStyle(
-                  fontSize: 36,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(top: 42.0, bottom: 42.0),
+                child: Text(
+                  "My Plants",
+                  style: TextStyle(
+                    fontSize: 36,
+                  ),
                 ),
               ),
-            ),
-            const PlantCard(
-              title: "Potato",
-              humidity: 0.64,
-              growth: 0.45,
-              temp: 26,
-              lightOn: false,
-            ),
-            const PlantCard(
-              title: "Basil",
-              humidity: 0.72,
-              growth: 0.32,
-              temp: 27,
-            ),
-            const PlantCard(
-              title: "Cucumber",
-              humidity: 0.49,
-              growth: 0.79,
-              temp: 26,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
+              const PlantCard(
+                title: "Potato",
+                humidity: 0.64,
+                growth: 0.45,
+                temp: 26,
+                lightOn: false,
+              ),
+              const PlantCard(
+                title: "Basil",
+                humidity: 0.72,
+                growth: 0.32,
+                temp: 27,
+              ),
+              const PlantCard(
+                title: "Cucumber",
+                humidity: 0.49,
+                growth: 0.79,
+                temp: 26,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
                   primary: Colors.lightGreen,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40))),
-              onPressed: () => {},
-              icon: const Icon(Icons.add_rounded),
-              label: const Text(
-                "Add new Module",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
+                    borderRadius: BorderRadius.circular(40),
+                  ),
                 ),
-              ),
-            )
-          ],
+                onPressed: () async {
+                  // final data =
+                  //     await EmbeddedService.getData("http://192.168.43.104/");
+
+                  // print(data.toString());
+                  AddModuleSheet.show(context);
+                },
+                icon: const Icon(Icons.add_rounded),
+                label: const Text(
+                  "Add new Module",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
