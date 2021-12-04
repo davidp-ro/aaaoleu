@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'plantcard.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,14 +48,15 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Padding(
-              padding: EdgeInsets.symmetric(vertical: 42.0),
+              padding: EdgeInsets.only(top: 42.0, bottom: 42.0),
               child: Text(
                 "My Plants",
                 style: TextStyle(
-                  fontSize: 48,
+                  fontSize: 36,
                 ),
               ),
             ),
+            const PlantCard(title: "Potato"),
           ],
         ),
       ),
