@@ -18,7 +18,7 @@ class EmbeddedRes {
   /// Contains some mock data
   factory EmbeddedRes.fromJson(dynamic json) {
     return EmbeddedRes(
-        json['temperature'], json['humidity'], "Radish", 0.96, true, 7.2);
+        json['temperature'], json['humidity'] / 100, "Radish", 0.96, true, 7.2);
   }
 
   Map<String, dynamic> toMap() {
