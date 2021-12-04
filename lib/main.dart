@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.lightGreen,
         textTheme: GoogleFonts.muktaTextTheme(
           Theme.of(context).textTheme,
         ),
@@ -41,6 +41,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final textController = TextEditingController(text: "192.168.43.104");
+
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,21 +100,22 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 onPressed: () async {
-                  // final data =
-                  //     await EmbeddedService.getData("http://192.168.43.104/");
-
-                  // print(data.toString());
-                  AddModuleSheet.show(context);
+                  AddModuleSheet.show(context, textController, () async {
+                    final data = await EmbeddedService.getData(
+                        "http://${textController.value.text}/");
+                    print(data.toString());
+                    Navigator.pop(context);
+                  });
                 },
-                icon: const Icon(Icons.add_rounded),
+                icon: const Icon(Icons.add_rounded, color: Colors.white),
                 label: const Text(
-                  "Add new Module",
+                  "Add new module",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
