@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class PlantCard extends StatefulWidget {
   final String title;
-  final double humidity, growth;
+  final double humidity, growth, pH, targetpH;
   final int temp;
   final bool lightOn;
   const PlantCard({
@@ -12,6 +12,8 @@ class PlantCard extends StatefulWidget {
     this.growth = 0,
     this.temp = 0,
     this.lightOn = true,
+    required this.pH,
+    this.targetpH = 7,
   }) : super(key: key);
 
   @override
@@ -139,6 +141,21 @@ class _PlantCardState extends State<PlantCard> {
                                   ),
                                 ],
                               ),
+                            ),
+                            Text(
+                              "pH level: ${widget.pH}",
+                              style: const TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
+                            Text(
+                              "Target pH for this plant: ${widget.targetpH}",
+                              style: const TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
                             ),
                             SizedBox(
                               width: 150,
