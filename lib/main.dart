@@ -60,36 +60,39 @@ class _HomePageState extends State<HomePage> {
               title: "Potato",
               humidity: 0.64,
               growth: 0.45,
+              temp: 26,
+              lightOn: false,
             ),
             const PlantCard(
               title: "Basil",
               humidity: 0.72,
               growth: 0.32,
+              temp: 27,
             ),
             const PlantCard(
               title: "Cucumber",
               humidity: 0.49,
               growth: 0.79,
+              temp: 26,
             ),
             const SizedBox(
               height: 10,
             ),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.lightGreen,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40))),
-                onPressed: () => {},
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    "Add new Module",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
-                ))
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.lightGreen,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40))),
+              onPressed: () => {},
+              icon: const Icon(Icons.add_rounded),
+              label: const Text(
+                "Add new Module",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+              ),
+            )
           ],
         ),
       ),
