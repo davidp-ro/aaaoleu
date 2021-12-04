@@ -4,6 +4,8 @@ class PlantCard extends StatefulWidget {
   final String title;
   final double temp, humidity, growth, pH, targetpH;
   final bool lightOn;
+  final GestureTapCallback onLongPress;
+
   const PlantCard({
     Key? key,
     this.title = "MODULE",
@@ -13,6 +15,7 @@ class PlantCard extends StatefulWidget {
     this.lightOn = true,
     required this.pH,
     this.targetpH = 7,
+    required this.onLongPress,
   }) : super(key: key);
 
   @override
@@ -25,6 +28,7 @@ class _PlantCardState extends State<PlantCard> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: GestureDetector(
+        onLongPress: widget.onLongPress,
         onTap: () {
           showDialog(
               context: context,

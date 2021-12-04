@@ -118,6 +118,16 @@ class _HomePageState extends State<HomePage> {
                         temp: module.temperature,
                         lightOn: module.lightOn,
                         pH: module.pH,
+                        onLongPress: () {
+                          final modules =
+                              context.read<ModuleProvider>().results;
+                          modules.removeAt(index);
+                          context.read<ModuleProvider>().results = modules;
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Deleted module")),
+                          );
+                        },
                       );
                     },
                   ),
@@ -163,6 +173,10 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 20,
                       ),
                     ),
+                  ),
+                  const Text(
+                    "Long tap a module to delete it",
+                    style: TextStyle(color: Colors.grey),
                   ),
                   const SizedBox(height: 36),
                 ],
