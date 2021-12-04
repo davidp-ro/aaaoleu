@@ -1,20 +1,32 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:aaaoleu/add_module_modal.dart';
+import 'package:aaaoleu/no_glow_scroll.dart';
+import 'package:aaaoleu/providers/modules.dart';
 import 'package:aaaoleu/services/embedded.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '';
 import 'plantcard.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ModuleProvider()),
+      ],
+      child: const LightWay(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class LightWay extends StatelessWidget {
+  const LightWay({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -50,73 +62,112 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    SharedPreferences.getInstance().then((prefs) {
+      List<String> moduleURIs = prefs.getStringList("MODULES") ?? [];
+
+      print("\n\n\n\nSP: $moduleURIs\n\n\n\n");
+
+      for (String moduleURI in moduleURIs) {
+        EmbeddedService.getData(moduleURI).then((data) {
+          if (data != null) {
+            context.read<ModuleProvider>().addModule(data);
+            print("Added module from SharedPrefs: ${data.toString()}");
+          }
+        });
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(top: 42.0, bottom: 42.0),
-                child: Text(
-                  "My Plants",
-                  style: TextStyle(
-                    fontSize: 36,
+        child: ScrollConfiguration(
+          behavior: NoScrollGlow(),
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(top: 42.0),
+                    child: Text(
+                      "My Plants",
+                      style: TextStyle(
+                        fontSize: 36,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              const PlantCard(
-                title: "Potato",
-                humidity: 0.64,
-                growth: 0.45,
-                temp: 26,
-                lightOn: false,
-                pH: 6.4,
-              ),
-              const PlantCard(
-                title: "Basil",
-                humidity: 0.72,
-                growth: 0.32,
-                temp: 27,
-                pH: 7.1,
-              ),
-              const PlantCard(
-                title: "Cucumber",
-                humidity: 0.49,
-                growth: 0.79,
-                temp: 26,
-                pH: 6.9,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.lightGreen,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: context.watch<ModuleProvider>().results.length,
+                    itemBuilder: (context, index) {
+                      final module =
+                          context.watch<ModuleProvider>().results[index];
+
+                      return PlantCard(
+                        title: module.name,
+                        humidity: module.humidity,
+                        growth: module.growth,
+                        temp: module.temperature,
+                        lightOn: module.lightOn,
+                        pH: module.pH,
+                      );
+                    },
                   ),
-                ),
-                onPressed: () async {
-                  AddModuleSheet.show(context, textController, () async {
-                    final data = await EmbeddedService.getData(
-                        "http://${textController.value.text}/");
-                    print(data.toString());
-                    Navigator.pop(context);
-                  });
-                },
-                icon: const Icon(Icons.add_rounded, color: Colors.white),
-                label: const Text(
-                  "Add new module",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
+                  const SizedBox(
+                    height: 10,
                   ),
-                ),
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.lightGreen,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                    ),
+                    onPressed: () async {
+                      AddModuleSheet.show(context, textController, () async {
+                        final data = await EmbeddedService.addModule(
+                          "http://${textController.value.text}/",
+                        );
+
+                        if (data != null) {
+                          context.read<ModuleProvider>().addModule(data);
+                          print("\nAdded module: ${data.toString()}\n\n");
+                        }
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              data != null
+                                  ? "Successfully added!"
+                                  : "Someting went wrong...",
+                            ),
+                          ),
+                        );
+
+                        Navigator.pop(context);
+                      });
+                    },
+                    icon: const Icon(Icons.add_rounded, color: Colors.white),
+                    label: const Text(
+                      "Add new module",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 36),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),

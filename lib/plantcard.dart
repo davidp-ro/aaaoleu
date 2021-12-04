@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 class PlantCard extends StatefulWidget {
   final String title;
-  final double humidity, growth, pH, targetpH;
-  final int temp;
+  final double temp, humidity, growth, pH, targetpH;
   final bool lightOn;
   const PlantCard({
     Key? key,
@@ -281,11 +280,11 @@ class _PlantCardState extends State<PlantCard> {
                               ),
                             ],
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 15.0),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15.0),
                             child: Text(
-                              "Temperature:       22° C",
-                              style: TextStyle(fontSize: 24),
+                              "Temperature:       ${widget.temp} °C",
+                              style: const TextStyle(fontSize: 24),
                             ),
                           ),
                         ])
