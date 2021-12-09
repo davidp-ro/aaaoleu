@@ -1,16 +1,17 @@
-# aaaoleu
+# Team aaaoleu ❤️
 
-A new Flutter project.
+<h3 align=center>
+  lightWay - choose the right way
+ </h3>
+ 
+ <h4 align=center>
+  1st Place @ PoliHack 2021 (Juniors)
+</h4>
 
-## Getting Started
+### Folder structure
+- `embedded` - ESP32 simple Webserver
+- `website` - *Very* small landing page
+- The rest is the Flutter App
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### License
+TODO
