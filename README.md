@@ -13,5 +13,8 @@
 - `website` - *Very* small landing page
 - The rest is the Flutter App
 
+### Notes
+_This is hackathon level code quality, so... quite low quality (hard-coded values and more) but it does work :)_
+
 ### License
-TODO
+CC0 1.0 Universal (CC0 1.0) - Public Domain Dedication
